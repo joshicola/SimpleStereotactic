@@ -1,0 +1,34 @@
+# wavefront obj file written by the visualization toolkit
+
+mtllib /home/josher/Projects_Phat/2017.02.16.StereoTactic.SurgicalPlanning/Code/SlicerExtensions/3D_Slicer_Extension/PigFrame_NonProprietary_Extension/PigFrame/Resources/Models/Frame_Template_wf.mtl
+
+v -50 50 -13.651
+v -50 150 -13.651
+v -50 150 -13.651
+v -150 50 -13.651
+v -150 50 -13.651
+v -150 150 -13.651
+v -205 50 -50
+v -205 150 -50
+v -205 150 -50
+v -205 50 -150
+v -205 50 -150
+v -205 150 -150
+v 5 50 -50
+v 5 150 -50
+v 5 50 -50
+v 5 150 -150
+v 5 50 -150
+v 5 150 -150
+
+g grp1
+usemtl mtl1
+l 1 2 
+l 3 4 
+l 5 6 
+l 7 8 
+l 9 10 
+l 11 12 
+l 13 14 
+l 15 16 
+l 17 18 
