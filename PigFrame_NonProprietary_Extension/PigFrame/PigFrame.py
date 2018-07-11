@@ -17,16 +17,15 @@ class PigFrame(ScriptedLoadableModule):
   def __init__(self, parent):
     ScriptedLoadableModule.__init__(self, parent)
     self.parent.title = "PigFrame" # TODO make this more human readable by adding spaces
-    self.parent.categories = ["NEL_Mayo"]
+    self.parent.categories = ["SimpleStereotactic"]
     self.parent.dependencies = []
-    self.parent.contributors = ["Joshua Jacobs PhD (Mayo Clinic)","Steve Goerss (Mayo Clinic)","Kendall Lee, MD PhD (Mayo Clinic)"]
+    self.parent.contributors = ["Joshua Jacobs PhD (Mayo Clinic)"]
     self.parent.helpText = """
     This is an example of scripted loadable module bundled in an extension.
     It performs a simple thresholding on the input volume and optionally captures a screenshot.
     """
     self.parent.acknowledgementText = """
-    This file was originally developed by Joshua Jacobs, Steven Goerss, and Kendall Lee at Mayo Clinic
-    NIH grant XXXXX-XX."""
+    This file was originally developed by Joshua Jacobs."""
 
 #
 # PigFrameWidget
