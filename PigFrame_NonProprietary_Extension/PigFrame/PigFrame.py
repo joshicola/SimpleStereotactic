@@ -377,7 +377,7 @@ class PigFrameWidget(ScriptedLoadableModuleWidget):
         inputFiducials.SetAndObserveTransformNodeID(outputTransform.GetID())
         inputVolume.SetAndObserverTransformNodeID(outputTransform.GetID())
 
-    logic.run(inputFiducials, inputModel, outputTransform, 0, 100)
+    logic.run(inputFiducials, inputModel, outputTransform, 0, 100) #Rigid, 100 iterations
 
     #self.outputLine.setText( logic.ComputeMeanDistance(inputFiducials, inputModel, outputTransform) )
 
