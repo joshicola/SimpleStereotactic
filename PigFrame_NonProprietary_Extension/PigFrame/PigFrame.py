@@ -4,6 +4,7 @@ import vtk, qt, ctk, slicer
 from slicer.ScriptedLoadableModule import *
 import logging
 from platform import node
+from FiducialsToModelRegistration import FiducialsToModelRegistrationLogic
 
 #
 # PigFrame
@@ -98,38 +99,56 @@ class PigFrameWidget(ScriptedLoadableModuleWidget):
     #
     registrationCollapsibleButton = ctk.ctkCollapsibleButton()
     registrationCollapsibleButton.text = "Register Image to Frame"
-    registrationCollapsibleButton.setDisabled(True)
-    registrationCollapsibleButton.collapsed=True
+    registrationCollapsibleButton.setDisabled(False)
+    registrationCollapsibleButton.collapsed=False
     self.layout.addWidget(registrationCollapsibleButton)
     
     # Layout within the dummy collapsible button
     registrationFormLayout = qt.QFormLayout(registrationCollapsibleButton)
-    
-    #self.ACbtn=slicer.qMRMLAnnotationFiducialProjectionPropertyWidget()
-    #self.ACbtn=slicer.qMRMLCoordinatesWidget()
-    #self.ACbtn=slicer.qMRMLTableWidget()
-    self.ACbtn=slicer.qMRMLNodeComboBox()
-    self.ACbtn.nodeTypes=["vtkMRMLMarkupsFiducialNode"]
-    self.ACbtn.selectNodeUponCreation = True
-    self.ACbtn.addEnabled = True
-    self.ACbtn.removeEnabled = True
-    self.ACbtn.noneEnabled = True
-    self.ACbtn.showHidden = True
-    self.ACbtn.showChildNodeTypes = True
-    self.ACbtn.setMRMLScene( slicer.mrmlScene )
-    self.ACbtn.setToolTip( "Pick the input to the algorithm.")
-    
-    registrationFormLayout.addRow("Fiducials",self.ACbtn)
-    
+
+    #
+    # input fiducial list selector
+    #
+
+    fiducialWarningLabel = qt.QLabel( "Note: Parent transforms of fiducials are not used. Fiducials should be defined in the coordinate system that is being registered." )
+    fiducialWarningLabel.setWordWrap( True )
+    registrationFormLayout.addRow(fiducialWarningLabel)
+
+    self.inputFiducialSelector = slicer.qMRMLNodeComboBox()
+    self.inputFiducialSelector.nodeTypes = ( ("vtkMRMLMarkupsFiducialNode"), "" )
+    self.inputFiducialSelector.selectNodeUponCreation = False
+    self.inputFiducialSelector.addEnabled = False
+    self.inputFiducialSelector.removeEnabled = False
+    self.inputFiducialSelector.noneEnabled = True
+    self.inputFiducialSelector.showHidden = False
+    self.inputFiducialSelector.showChildNodeTypes = False
+    self.inputFiducialSelector.setMRMLScene( slicer.mrmlScene )
+    self.inputFiducialSelector.setToolTip( "Pick the input fiducial list for the algorithm." )
+    registrationFormLayout.addRow("Input fiducials: ", self.inputFiducialSelector)
+
+    #
+    # input volume selector
+    #
+    self.inputVolumeSelector = slicer.qMRMLNodeComboBox()
+    self.inputVolumeSelector.nodeTypes = (("vtkMRMLScalarVolumeNode"), "")
+    self.inputVolumeSelector.selectNodeUponCreation = False
+    self.inputVolumeSelector.addEnabled = False
+    self.inputVolumeSelector.removeEnabled = False
+    self.inputVolumeSelector.noneEnabled = True
+    self.inputVolumeSelector.showHidden = False
+    self.inputVolumeSelector.showChildNodeTypes = False
+    self.inputVolumeSelector.setMRMLScene(slicer.mrmlScene)
+    self.inputVolumeSelector.setToolTip("Pick the input model for the algorithm.")
+    registrationFormLayout.addRow("Input model: ", self.inputVolumeSelector)
     #
     # Register Button
     #
-    self.registerButton = qt.QPushButton("Register")
-    self.registerButton.toolTip = "Run the algorithm."
-    self.registerButton.enabled = False
-    registrationFormLayout.addRow(self.registerButton)
-    
-    
+    self.applyRegButton = qt.QPushButton("Apply")
+    self.applyRegButton.toolTip = "Run the algorithm."
+    self.applyRegButton.enabled = False
+    registrationFormLayout.addRow(self.applyRegButton)
+
+###############################################################################
     #Atlas Registration Area
     atlasRegistrationCollapsibleButton = ctk.ctkCollapsibleButton()
     atlasRegistrationCollapsibleButton.text = "Register Atlas to Frame"
@@ -173,9 +192,8 @@ class PigFrameWidget(ScriptedLoadableModuleWidget):
     self.AtlasRegisterButton.enabled = True
     atlasregistrationFormLayout.addRow(self.AtlasRegisterButton)
     
-    #Connect Button to
-    self.AtlasRegisterButton.connect('clicked(bool)', self.RegisterACPC)
 
+#####################################
     #
     # Target and Trajectory Area
     #
@@ -267,8 +285,17 @@ class PigFrameWidget(ScriptedLoadableModuleWidget):
     self.applyButton.toolTip = "Generate New Electrode"
     self.applyButton.enabled = False
     parametersFormLayout.addRow(self.applyButton)
+########################
+    #Procedure connections
+    #Image to Frame Registration
+    self.applyRegButton.connect('clicked(bool)', self.onApplyRegButton)
+    self.inputVolumeSelector.connect("currentNodeChanged(vtkMRMLNode*)",self.onRegSelect)
+    self.inputFiducialSelector.connect("currentNodeChanged(vtkMRMLNode*)", self.onRegSelect)
 
-    # connections
+    #Atlas to Frame Registration
+    self.AtlasRegisterButton.connect('clicked(bool)', self.RegisterACPC)
+
+    #Target and Trajectory
     self.applyButton.connect('clicked(bool)', self.newElectrode)
     self.inputSelector.connect("currentNodeChanged(vtkMRMLNode*)", self.onSelect)
 
@@ -314,12 +341,46 @@ class PigFrameWidget(ScriptedLoadableModuleWidget):
     #print path
     #slicer.util.loadScene(path)
 
-    
-
-
 
   def cleanup(self):
     pass
+
+  def onRegSelect(self):
+    self.applyRegButton.enabled = self.inputVolumeSelector.currentNode() and self.inputFiducialSelector.currentNode()
+
+  def onApplyRegButton(self):
+    #This is where we ensure appropriate requirements of the registration technique
+    logic = FiducialsToModelRegistrationLogic()
+
+    inputFiducials = self.inputFiducialSelector.currentNode()
+    inputModel = slicer.util.getNode('Frame_Template_wf')
+    inputVolume = self.inputVolumeSelector.currentNode()
+
+    transID=inputVolume.GetTransformNodeID()
+
+    if transID==inputFiducials.GetTransformNodeID() and transID != None:
+        #they both have the same transform
+        outputTransform = slicer.util.getNode(transID)
+    elif transID==None:
+        #Neither of them have a transform
+        outputTransform=slicer.mrmlScene.AddNewNodeByClass('vtkMRMLLinearTransformNode','transRegToFrame')
+        inputFiducials.SetAndObserveTransformNodeID(outputTransform.GetID())
+        inputVolume.SetAndObserveTransformNodeID(outputTransform.GetID())
+    else:
+        #Harden Transform, Make it identity, put Volume and Fiducials in
+        outputTransform=slicer.util.GetNode(transID)
+        inputVolume.HardenTransform()
+        inputFiducials.HardenTransform()
+        mat=vtk.vtkMatrix4x4()
+        mat.Identity()
+        outputTransform.SetMatrixTransformToParent(mat)
+        inputFiducials.SetAndObserveTransformNodeID(outputTransform.GetID())
+        inputVolume.SetAndObserverTransformNodeID(outputTransform.GetID())
+
+    logic.run(inputFiducials, inputModel, outputTransform, 0, 100)
+
+    #self.outputLine.setText( logic.ComputeMeanDistance(inputFiducials, inputModel, outputTransform) )
+
 
   def RegisterACPC(self):
     Pts1=self.AtlasFids.currentNode()
