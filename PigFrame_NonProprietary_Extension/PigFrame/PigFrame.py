@@ -230,7 +230,7 @@ class PigFrameWidget(ScriptedLoadableModuleWidget):
     self.arcAngleWidget.minimum = 0
     self.arcAngleWidget.maximum = 180
     self.arcAngleWidget.value = 90
-    self.arcAngleWidget.setToolTip("Set threshold value for computing the output image. Voxels that have intensities lower than this value will set to zero.")
+    self.arcAngleWidget.setToolTip("Set Arc angle of approach.")
     parametersFormLayout.addRow("Arc", self.arcAngleWidget)
     
     #
@@ -241,7 +241,7 @@ class PigFrameWidget(ScriptedLoadableModuleWidget):
     self.collarAngleWidget.minimum = 0
     self.collarAngleWidget.maximum = 180
     self.collarAngleWidget.value = 90
-    self.collarAngleWidget.setToolTip("Set threshold value for computing the output image. Voxels that have intensities lower than this value will set to zero.")
+    self.collarAngleWidget.setToolTip("Set Collar angle of approach.")
     parametersFormLayout.addRow("Collar", self.collarAngleWidget)    
     
 
@@ -444,7 +444,7 @@ class PigFrameWidget(ScriptedLoadableModuleWidget):
     self.yOriginWidget.setValue(Target[1])
     self.zOriginWidget.setValue(-1*Target[2])
 
-    self.arcAngleWidget.setValue(180-arc)
+    self.arcAngleWidget.setValue(arc) 
     self.collarAngleWidget.setValue(collar)
 
   def Targets_to_Frame(self, Xt, Xe):
@@ -519,7 +519,7 @@ class PigFrameWidget(ScriptedLoadableModuleWidget):
         
   def onApplyButton(self):
     logic = PigFrameLogic()
-    arcAngle = self.arcAngleWidget.value-90
+    arcAngle = -1*(self.arcAngleWidget.value-90)
     collarAngle = self.collarAngleWidget.value-90
     x0=self.xOriginWidget.value
     y0=self.yOriginWidget.value

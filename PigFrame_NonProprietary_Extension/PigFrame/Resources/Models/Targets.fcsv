@@ -2,4 +2,4 @@
 # CoordinateSystem = 0
 # columns = id,x,y,z,ow,ox,oy,oz,vis,sel,lock,label,desc,associatedNodeID
 vtkMRMLMarkupsFiducialNode_2,-100,100,-100,0,0,0,1,1,1,0,Target,,vtkMRMLScalarVolumeNode1
-vtkMRMLMarkupsFiducialNode_3,-100,100,-21.5219,0,0,0,1,1,1,0,Entry,,
+vtkMRMLMarkupsFiducialNode_3,-99.4521,100,-21.5238,0,0,0,1,1,1,0,Entry,,
