@@ -55,9 +55,12 @@ This loads the blank extension that is ready to load both images and atlas.
    - Select AC/PC for the Atlas 
    - Select AC/PC for the Image
    - Press "Register Atlas to Frame"
-   - The Atlas will be visible after insertion and appropriate visibility adjustment  
-   - Subcortical regions will be annotated in the Data Probe pane of slicer
+   - The Atlas will be visible after insertion and appropriate visibility adjustment
+
 <center><img src="./Pictures/Atlas_Tuning.png" width="512"></center>
+
+   - Subcortical regions will be annotated in the Data Probe pane of slicer
+
 4. Target and Trajectory: There are two different mechanisms to plan the target and trajectory 
     - Use the "Target and Trajectory"  Area of the SimpleStereotactic Extension
 
