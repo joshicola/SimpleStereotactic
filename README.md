@@ -7,13 +7,18 @@ The coordinates describe the parameters necessary to reproduce the targeting. Pa
 
 **Loading the Extension:** Navigate to the Extension Wizard Found under Modules->Developer Tools->Extension Wizard
 
-<center>![](./Pictures/ExtensionTools.png)</center>
+<center><center><img src="./Pictures/ExtensionTools.png" width="450"></center>
 
 
 
 Navigate to <gitroot>/SimpleStereotactic/PigFrame_NonProprietary_Extension/ to load extension:
 
-<center>![](./Pictures/NavigateDireExt.png)</center>
+
+<center>
+
+<img src="./Pictures/NavigateDireExt.png" width="450">
+
+</center>
 
 
 
