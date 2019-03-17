@@ -138,8 +138,8 @@ class PigFrameWidget(ScriptedLoadableModuleWidget):
     self.inputVolumeSelector.showHidden = False
     self.inputVolumeSelector.showChildNodeTypes = False
     self.inputVolumeSelector.setMRMLScene(slicer.mrmlScene)
-    self.inputVolumeSelector.setToolTip("Pick the input model for the algorithm.")
-    registrationFormLayout.addRow("Input model: ", self.inputVolumeSelector)
+    self.inputVolumeSelector.setToolTip("Pick the input volume for the algorithm.")
+    registrationFormLayout.addRow("Input Volume: ", self.inputVolumeSelector)
     #
     # Register Button
     #
