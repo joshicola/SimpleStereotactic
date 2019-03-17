@@ -37,11 +37,17 @@ This loads the blank extension that is ready to load both images and atlas.
 
 2. Register Image to Frame: 
    - It is best to first transform the Image Volume to appropriate Inferior-Supperior/Left-Right/Anterior-Superior Orientation for best results
+
 <center><img src="./Pictures/GetItClose.png" width="512"></center>
+
    - Create a Fiducial set (Image_Points here) that places fiducials in the middle of the cross section of the localizer at least three different depths in the coronal section:  
+
 <center><img src="./Pictures/PlacePoints.png" width="512"></center>
+
    - Select Fiducials and Image in the "Register Image to Frame" Section of the Extension
+
 <center><img src="./Pictures/Register_To_Frame.png" width="512"></center>
+
    - Press Apply
 3. Register Atlas to Frame: After selecting the Anterior Commissure (AC) and Posterior Commissure(PC) on the Image ([INRA Pig Atlas](https://www6.rennes.inra.fr/adnc_eng/Home/News-Focus/Pig-brain-atlas) See Below)
 <center><img src="./Pictures/AC_PC.png" width="512"></center>
