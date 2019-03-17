@@ -51,6 +51,7 @@ This loads the blank extension that is ready to load both images and atlas.
    - Press Apply
 3. Register Atlas to Frame: After selecting the Anterior Commissure (AC) and Posterior Commissure(PC) on the Image ([INRA Pig Atlas](https://www6.rennes.inra.fr/adnc_eng/Home/News-Focus/Pig-brain-atlas) See Below)
 <center><img src="./Pictures/AC_PC.png" width="512"></center>
+
    - Select AC/PC for the Atlas 
    - Select AC/PC for the Image
    - Press "Register Atlas to Frame"
@@ -59,13 +60,16 @@ This loads the blank extension that is ready to load both images and atlas.
 <center><img src="./Pictures/Atlas_Tuning.png" width="512"></center>
 4. Target and Trajectory: There are two different mechanisms to plan the target and trajectory 
     - Use the "Target and Trajectory"  Area of the SimpleStereotactic Extension
+
 <center><img src="./Pictures/Target_and_Trajectory.png" width="512"></center>
+
     - Use the "Target" and "Entry" fiducials in the "Targets" Markups List. Moving these will automatically update the parameters in the "Target and Trajectory" area.  Furthermore, all views will update to the new position of the moved fiducial. 
 
 
 **Path View:**
 
 The IGT PathExplorer Extension can be used to examine the anatomy both perpendicular and parallel to the path of the catheter.
+
 <center><img src="./Pictures/PathExplorer.png" width="512"></center>
 
 
