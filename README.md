@@ -50,6 +50,7 @@ This loads the blank extension that is ready to load both images and atlas.
 
    - Press Apply
 3. Register Atlas to Frame: After selecting the Anterior Commissure (AC) and Posterior Commissure(PC) on the Image ([INRA Pig Atlas](https://www6.rennes.inra.fr/adnc_eng/Home/News-Focus/Pig-brain-atlas) See Below)
+
 <center><img src="./Pictures/AC_PC.png" width="512"></center>
 
    - Select AC/PC for the Atlas 
@@ -65,7 +66,6 @@ This loads the blank extension that is ready to load both images and atlas.
     - Use the "Target and Trajectory"  Area of the SimpleStereotactic Extension
 
 <center><img src="./Pictures/Target_and_Trajectory.png" width="512"></center>
-
     - Use the "Target" and "Entry" fiducials in the "Targets" Markups List. Moving these will automatically update the parameters in the "Target and Trajectory" area.  Furthermore, all views will update to the new position of the moved fiducial. 
 
 
