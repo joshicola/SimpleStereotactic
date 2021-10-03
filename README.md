@@ -3,23 +3,10 @@ This is an unregistered 3D Slicer Project to assist in stereotactic navigation w
 
 The coordinates describe the parameters necessary to reproduce the targeting. Parameters are consistent with those for a [Compass Stereotactic Frame](http://www.ciimedical.com/index.php?p=compass).  This project can be modified to accomodate other coordinate systems.
 
-**Extension Requirements:** SlicerIGT from the Slicer Extension Manager (Install and Restart Slicer)
-
-**Loading the Extension:** Navigate to the Extension Wizard Found under Modules->Developer Tools->Extension Wizard
-
-<center><center><img src="./Pictures/ExtensionTools.png" width="450"></center>
 
 
-
-Navigate to <gitroot>/SimpleStereotactic/PigFrame_NonProprietary_Extension/ to load extension:
-
-
-<center>
-
-<img src="./Pictures/NavigateDireExt.png" width="450">
-
-</center>
-
+## Installation: 
+See the installation [file](INSTALLATION.md) for complete installation instructions
 
 
 **Select Extension:**
