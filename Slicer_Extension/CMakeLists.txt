@@ -7,10 +7,10 @@ project(SimpleFrame)
 set(EXTENSION_HOMEPAGE "http://slicer.org/slicerWiki/index.php/Documentation/Nightly/Extensions/SimpleFrame")
 set(EXTENSION_CATEGORY "IGT")
 set(EXTENSION_CONTRIBUTORS "Joshua Jacobs")
-set(EXTENSION_DESCRIPTION "This Slicer Extension models the targetting and trajectory for a pig frame.")
+set(EXTENSION_DESCRIPTION "This Slicer Extension models the targeting and trajectory for a simple frame in Compass coordinates.")
 set(EXTENSION_ICONURL "http://www.example.com/Slicer/Extensions/SimpleFrame.png")
 set(EXTENSION_SCREENSHOTURLS "http://www.example.com/Slicer/Extensions/SimpleFrame/Screenshots/1.png")
-set(EXTENSION_DEPENDS "NA") # Specified as a space separated string, a list or 'NA' if any
+set(EXTENSION_DEPENDS SlicerIGT) # Specified as a space separated string, a list or 'NA' if any
 
 #-----------------------------------------------------------------------------
 # Extension dependencies
@@ -32,7 +32,7 @@ include(${Slicer_USE_FILE})
 
 #-----------------------------------------------------------------------------
 # Extension modules
-add_subdirectory(SimpleFrame)
+add_subdirectory(simple_frame)
 
 #NEXT_MODULE
 
