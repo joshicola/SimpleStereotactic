@@ -1,20 +1,4 @@
 # ToDos:
-- [x] Give an icon for use in 3D Slicer.
-- [x] Put Future Work at bottom.
-- [x] Move installation from README to another file
-- [x] Example
-- [x] Rename Directories and files appropriately
-- [x] Look at FlywheelConnect for the formatting of the CMakeLists.txt files
-- [x] linting of python files
-    - [x] snake case
-    - [x] doc strings
-- [X] Testing the Extension under load
-    - [x] Electrodes switching: need to store the entry point as well.
-    - [x] Electrodes switching: ensure data is saved for reseting.
-    - [x] Dragging target beyond 50-150
-        - [X] Need to update Readme/Wiki to note the constraints.
-    - [X] Address all ToDos.
-
 	
 ## Non-Essential for later:
 - [ ] Create wiki for detailed specifications and instructions.
