@@ -4,13 +4,14 @@ project(SimpleFrame)
 
 #-----------------------------------------------------------------------------
 # Extension meta-information
-set(EXTENSION_HOMEPAGE "http://slicer.org/slicerWiki/index.php/Documentation/Nightly/Extensions/SimpleFrame")
+set(EXTENSION_HOMEPAGE "https://github.com/joshicola/SimpleStereotactic")
 set(EXTENSION_CATEGORY "IGT")
 set(EXTENSION_CONTRIBUTORS "Joshua Jacobs")
 set(EXTENSION_DESCRIPTION "This Slicer Extension models the targeting and trajectory for a simple frame in Compass coordinates.")
-set(EXTENSION_ICONURL "http://www.example.com/Slicer/Extensions/SimpleFrame.png")
-set(EXTENSION_SCREENSHOTURLS "http://www.example.com/Slicer/Extensions/SimpleFrame/Screenshots/1.png")
-set(EXTENSION_DEPENDS SlicerIGT) # Specified as a space separated string, a list or 'NA' if any
+# ToDo: These below need to be more fully specified.
+set(EXTENSION_ICONURL "https://raw.githubusercontent.com/Slicer/Extensions/SimpleFrame.png")
+set(EXTENSION_SCREENSHOTURLS "https://github.com/flywheel-apps/SlicerFlywheelConnect/blob/master/Images/TreeD_Slicer.png"
+set(EXTENSION_DEPENDS SlicerIGT) 
 
 #-----------------------------------------------------------------------------
 # Extension dependencies

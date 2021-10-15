@@ -1,3 +1,7 @@
+"""
+Module that governs all of the functionality of the SimpleStereotactic Slicer Extenstion
+"""
+import ast
 import logging
 import math
 import os
@@ -51,9 +55,10 @@ class SimpleFrameWidget(ScriptedLoadableModuleWidget):
         # Setup neccessary elements
         self.curr_electrode = None
         self.switching_electrodes = False  # if we are "Switching Electrodes"
-        # TODO: Get an understanding of this and document
+        # Ensures consistent distance between entry_point and target_point with
+        # the use of the widgets
         self.point_moving = False
-        # TODO: Get an understanding of this and document
+        # For adjusting red, green, yellow views when moving widgets
         self.slice_nodes = slicer.util.getNodesByClass("vtkMRMLSliceNode")
         # Targets
         self.targs = None
@@ -101,9 +106,6 @@ class SimpleFrameWidget(ScriptedLoadableModuleWidget):
         # "Targets" Fiducial Node
         # Other events for FiducialNode listed in
         # (https://www.slicer.org/doc/html/classvtkMRMLMarkupsNode.html)
-        # TODO: Have a "target" fiducial for each electrode that can be placed
-        #       independently
-        self.targs = slicer.util.getNode("Targets")
         self.targs.AddObserver(self.targs.PointEndInteractionEvent, self.point_moved)
 
     def load_frame_mrb(self):
@@ -116,6 +118,7 @@ class SimpleFrameWidget(ScriptedLoadableModuleWidget):
             mrml_path[: mrml_path.rfind("/")] + "/Resources/Models/SimpleScene.mrb"
         )
         slicer.util.loadScene(mrml_path)
+        self.targs = slicer.util.getNode("Targets")
 
     def hide_special_components(self):
         """
@@ -210,7 +213,7 @@ class SimpleFrameWidget(ScriptedLoadableModuleWidget):
         """
 
         atlas_registration_collapsible_button = ctk.ctkCollapsibleButton()
-        atlas_registration_collapsible_button.text = "Register Atlas to Frame"
+        atlas_registration_collapsible_button.text = "Register Atlas to Scan"
         atlas_registration_collapsible_button.setDisabled(False)
         self.layout.addWidget(atlas_registration_collapsible_button)
 
@@ -393,7 +396,7 @@ class SimpleFrameWidget(ScriptedLoadableModuleWidget):
 
     def cleanup(self):
         """
-        TODO: FIgure out why this is here
+        Cleanup extra variables.
         """
         pass
 
@@ -485,7 +488,6 @@ class SimpleFrameWidget(ScriptedLoadableModuleWidget):
             atlas_fiducials.SetAndObserveTransformNodeID(output_transform.GetID())
             atlas_volume.SetAndObserverTransformNodeID(output_transform.GetID())
 
-        # TODO: Create Atlas Trans if it does not exist. And apply to atlas volume.
         atlas_transform = slicer.util.getNode("transAtlasToScan")
 
         atlas_points = np.array([[0.0, 0.0, 0.0], [0.0, 0.0, 0.0]])
@@ -541,7 +543,6 @@ class SimpleFrameWidget(ScriptedLoadableModuleWidget):
                 The target/entry fiducial that called
             event ([type]): Not used, but required in the function description.
         """
-        # TODO: Use a fiducial for each electrode.
         self.point_moving = True
         moving_point_indx = int(caller.GetAttribute("Markups.MovingMarkupIndex"))
         moving_point_indx = int(moving_point_indx)
@@ -563,11 +564,19 @@ class SimpleFrameWidget(ScriptedLoadableModuleWidget):
         target_point = [0.0, 0.0, 0.0]
         self.targs.GetNthFiducialPosition(1, entry_point)
         self.targs.GetNthFiducialPosition(0, target_point)
-        [arc, collar] = self.targets_to_frame(target_point, entry_point)
 
         self.x_origin_widget.setValue(-1 * target_point[0])
         self.y_origin_widget.setValue(target_point[1])
         self.z_origin_widget.setValue(-1 * target_point[2])
+
+        # Adjust target for widget constraints applied in lines above:
+        target_point = [
+            -1 * self.x_origin_widget.value,
+            self.y_origin_widget.value,
+            -1 * self.z_origin_widget.value,
+        ]
+
+        [arc, collar] = self.targets_to_frame(target_point, entry_point)
 
         self.arc_angle_widget.setValue(arc)
         self.collar_angle_widget.setValue(collar)
@@ -613,7 +622,6 @@ class SimpleFrameWidget(ScriptedLoadableModuleWidget):
         """
         Update form properties to selected electrode attributes.
         """
-
         self.new_electrode_button.enabled = self.input_selector.currentNode()
         # Get Current Electrode
         selected_electrode = self.input_selector.currentNode()
@@ -656,8 +664,13 @@ class SimpleFrameWidget(ScriptedLoadableModuleWidget):
             selected_electrode.SetAndObserveTransformNodeID(
                 slicer.util.getNode("Arc").GetID()
             )
+            entry_point = ast.literal_eval(selected_electrode.GetAttribute("Entry"))
+            self.targs.SetNthFiducialPosition(
+                1, entry_point[0], entry_point[1], entry_point[2]
+            )
 
             self.update_nodes()
+
             self.switching_electrodes = False
             self.save_electrode_properties(self.curr_electrode)
 
@@ -666,10 +679,11 @@ class SimpleFrameWidget(ScriptedLoadableModuleWidget):
         On changes to form coordinates widget save properties in electrode attributes.
         """
         self.curr_electrode = self.input_selector.currentNode()
-        self.save_electrode_properties(self.curr_electrode)
 
         if self.new_electrode_button.enabled:
             self.update_nodes()
+
+        self.save_electrode_properties(self.curr_electrode)
 
     def update_nodes(self):
         """
@@ -738,7 +752,7 @@ class SimpleFrameWidget(ScriptedLoadableModuleWidget):
             self.targs.SetNthFiducialPosition(
                 1, entry_point[0], entry_point[1], entry_point[2]
             )
-            # TODO: I Still don't know what these do....
+            # When using x,y,z,collar,arc widgets adjust view in triptych windows
             for slice_node in self.slice_nodes:
                 slice_node.SetActiveSlice(1)
                 slice_node.SetActiveSlice(0)
@@ -763,9 +777,7 @@ class SimpleFrameWidget(ScriptedLoadableModuleWidget):
                 "Transform_" + electrode.GetName()
             )
             electrode_transform.SetMatrixTransformToParent(trans)
-            # inv.Invert()
-            # Store it in a dictionary for retrieval
-            # self.electrode_inverse_matrices[electrode.GetName()]=inv
+
             # save specific values
             electrode.SetAttribute("X", str(self.x_origin_widget.value))
             electrode.SetAttribute("Y", str(self.y_origin_widget.value))
@@ -773,9 +785,9 @@ class SimpleFrameWidget(ScriptedLoadableModuleWidget):
             electrode.SetAttribute("Arc", str(self.arc_angle_widget.value))
             electrode.SetAttribute("Collar", str(self.collar_angle_widget.value))
 
-        # Harden transform
-        # logic=slicer.vtkSlicerTransformLogic()
-        # logic.hardenTransform(self.curr_electrode)
+            entry_point = np.array([0.0, 0.0, 0.0])
+            self.targs.GetNthFiducialPosition(1, entry_point)
+            electrode.SetAttribute("Entry", str(list(entry_point)))
 
     def new_electrode(self):
         """
@@ -895,24 +907,24 @@ class SimpleFrameLogic(ScriptedLoadableModuleLogic):
             3000,
         )
 
-        lm = slicer.app.layoutManager()
+        layout_manager = slicer.app.layoutManager()
         # switch on the shot_type to get the requested window
         widget = 0
         if shot_type == slicer.qMRMLScreenShotDialog.FullLayout:
             # full layout
-            widget = lm.viewport()
+            widget = layout_manager.viewport()
         elif shot_type == slicer.qMRMLScreenShotDialog.ThreeD:
             # just the 3D window
-            widget = lm.threeDWidget(0).threeDView()
+            widget = layout_manager.threeDWidget(0).threeDView()
         elif shot_type == slicer.qMRMLScreenShotDialog.Red:
             # red slice window
-            widget = lm.sliceWidget("Red")
+            widget = layout_manager.sliceWidget("Red")
         elif shot_type == slicer.qMRMLScreenShotDialog.Yellow:
             # yellow slice window
-            widget = lm.sliceWidget("Yellow")
+            widget = layout_manager.sliceWidget("Yellow")
         elif shot_type == slicer.qMRMLScreenShotDialog.Green:
             # green slice window
-            widget = lm.sliceWidget("Green")
+            widget = layout_manager.sliceWidget("Green")
         else:
             # default to using the full window
             widget = slicer.util.mainWindow()
