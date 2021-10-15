@@ -34,6 +34,7 @@ include(${Slicer_USE_FILE})
 #-----------------------------------------------------------------------------
 # Extension modules
 add_subdirectory(simple_frame)
+add_subdirectory(kopf_frame)
 
 #NEXT_MODULE
 
