@@ -1,62 +1,50 @@
 # SimpleStereotactic
-This is an unregistered 3D Slicer Project to assist in stereotactic navigation with a compass frame.
+Simple Stereotactic is an unregistered 3D Slicer Extension to give sub-millimeter accuracy for use with the [COMPASS&trade; Stereotactic Frame](http://www.ciimedical.com/index.php?p=compass) coordinate system.
 
 The coordinates describe the parameters necessary to reproduce the targeting. Parameters are consistent with those for a [Compass Stereotactic Frame](http://www.ciimedical.com/index.php?p=compass).  This project can be modified to accomodate other coordinate systems.
 
-**Extension Requirements:** SlicerIGT from the Slicer Extension Manager (Install and Restart Slicer)
-
-**Loading the Extension:** Navigate to the Extension Wizard Found under Modules->Developer Tools->Extension Wizard
-
-<center><center><img src="./Pictures/ExtensionTools.png" width="450"></center>
 
 
+## [Installation](INSTALLATION.md): 
+See the [installation file](INSTALLATION.md) for complete installation instructions
 
-Navigate to <gitroot>/SimpleStereotactic/PigFrame_NonProprietary_Extension/ to load extension:
+## Usage
+This extension provides functionality to
 
+* Register images with a fiducial frame to the coordinate space of the head frame
+* Register an atlas of a given species to the Anterior Commissure and Posterior Commissure (AC/PC) of the provide subject
+* Plan and alter multiple trajectories for the placement of canulas to target points.
 
-<center>
+[Detailed instructions](Example_Instructions.md) using the Porcine_Sample_Data_with_Atlas.mrb are provided.
 
-<img src="./Pictures/NavigateDireExt.png" width="450">
+## Example File
+The example file provided, Porcine_Sample_Data_with_Atlas.mrb, is a medical record bundle (mrb) file with the following files zip-compressed within:
 
-</center>
-
-
-
-**Select Extension:**
-
-<center><img src="./Pictures/SelectExtension.png" width="450"></center>
-
-This loads the blank extension that is ready to load both images and atlas.
-
-<center><img src="./Pictures/Blank.png" width="512"></center>
-
-**The sequence of use is as follows:**
-
-1. Acquire image: Drag and drop image representing an MRI or CT with a localizer (z-bar, n-bar) into 3D Slicer 
-<center><img src="./Pictures/AddImage.png" width="512"></center>
-
-2. Register Image to Frame: 
-   - It is best to first transform the Image Volume to appropriate Inferior-Supperior/Left-Right/Anterior-Superior Orientation for best results <center><img src="./Pictures/GetItClose.png" width="512"></center>
-   - Create a Fiducial set (Image_Points here) that places fiducials in the middle of the cross section of the localizer at least three different depths in the coronal section: <center><img src="./Pictures/PlacePoints.png" width="512"></center>
-   - Select Fiducials and Image in the "Register Image to Frame" Section of the Extension <center><img src="./Pictures/Register_To_Frame.png" width="512"></center>
-   - Press Apply
-3. Register Atlas to Frame: After selecting the Anterior Commissure (AC) and Posterior Commissure(PC) on the Image ([INRA Pig Atlas](https://www6.rennes.inra.fr/adnc_eng/Home/News-Focus/Pig-brain-atlas) See Below) <center><img src="./Pictures/AC_PC.png" width="512"></center>
-   - Select AC/PC for the Atlas 
-   - Select AC/PC for the Image
-   - Press "Register Atlas to Frame"
-   - The Atlas will be visible after insertion and appropriate visibility adjustment <center><img src="./Pictures/Atlas_Tuning.png" width="512"></center>
-   - Subcortical regions will be annotated in the Data Probe pane of slicer
-
-4. Target and Trajectory: There are two different mechanisms to plan the target and trajectory 
-    - Use the "Target and Trajectory"  Area of the SimpleStereotactic Extension <center><img src="./Pictures/Target_and_Trajectory.png" width="512"></center>
-    - Use the "Target" and "Entry" fiducials in the "Targets" Markups List. Moving these will automatically update the parameters in the "Target and Trajectory" area.  Furthermore, all views will update to the new position of the moved fiducial. 
+* **Sample_Pig_MPRAGE.nrrd**: An MRI of a pig head with z-bar fiducials
+* **Scan_Frame_Points.mrk.json**: A sampling of points on the z-bar fiducial in the MRI.
+* **porcine_atlas.nrrd**: A numbered porcine atlas (see references).
+* **porcine_atlas_color_table.ctbl**: A 3D Slicer color table translating numbers to colors and labels for brain regions of the atlas.
+* **Atlas_AC_PC.mrk.json**: Fiducial points marking the Anterior Commissure (AC) and Posterior Commissure (PC) of the porcine atlas.
 
 
-**Path View:**
 
-The IGT PathExplorer Extension can be used to examine the anatomy both perpendicular and parallel to the path of the catheter.
+## References
+This software was used in the following paper:
 
-<center><img src="./Pictures/PathExplorer.png" width="512"></center>
+[A novel re-attachable stereotactic frame for MRI-guided neuronavigation and its validation in a large animal and human cadaver model](https://iopscience.iop.org/article/10.1088/1741-2552/aadb49)
 
+Christine A Edwards, Aaron E Rusheen, Yoonbae O2, Seungleal B Paek, Joshua Jacobs, Kristen H Lee, Kendall D Dennis, Kevin E Bennet, Abbas Z Kouzani, Kendall H Lee
 
-~~A pig atlas can be downloaded from https://www6.rennes.inra.fr/adnc_eng/Home/News-Focus/Pig-brain-atlas or more directly https://www6.rennes.inra.fr/adnc_eng/content/download/3394/36018/version/1/file/Atlas.mrb.~~  This link is no longer viable. Until the original can be appropriately sourced, it will be available at this [Dropbox Link](https://www.dropbox.com/s/2gvprhdo2ha6urf/Atlas.mrb?dl=0). Put the Atlas Model into the Atlas
+[![Alt text](https://img.youtube.com/vi/GGV5B3V5j9A/0.jpg)](https://www.youtube.com/watch?v=GGV5B3V5j9A)
+
+The source of the pig atlas is:
+
+[A three-dimensional digital segmented and deformable brain atlas of the domestic pig](https://doi.org/10.1016/j.jneumeth.2010.07.041)
+
+Stéphan Saikali, Paul Meurice, Paul Sauleau, Pierre-Antoine Eliat,
+Pascale Bellaud, Gwenaelle Randuineau, Marc Vérin, Charles-Henri Malbert
+
+## In The Works
+A experimental version of this [Extension](https://github.com/joshicola/SimpleStereotactic/tree/experimental_small_animal_frame) is in the works to navigate with a small animal frame. Such as with the [Kopf Instruments Small Animal Stereotactic Instrument](http://kopfinstruments.com/product/model-963-ultra-precise-small-animal-stereotaxic-instrument/). To adequately complete this, the following are needed:
+* More precise measurements for the active frame components (e.g. manipulators)
+* More representative models of the other frame components (e.g. base plate, u-frame)
