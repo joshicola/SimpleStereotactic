@@ -43,3 +43,8 @@ The source of the pig atlas is:
 
 Stéphan Saikali, Paul Meurice, Paul Sauleau, Pierre-Antoine Eliat,
 Pascale Bellaud, Gwenaelle Randuineau, Marc Vérin, Charles-Henri Malbert
+
+## In The Works
+A experimental version of this [Extension](https://github.com/joshicola/SimpleStereotactic/tree/experimental_small_animal_frame) is in the works to navigate with a small animal frame. Such as with the [Kopf Instruments Small Animal Stereotactic Instrument](http://kopfinstruments.com/product/model-963-ultra-precise-small-animal-stereotaxic-instrument/). To adequately complete this, the following are needed:
+* More precise measurements for the active frame components (e.g. manipulators)
+* More representative models of the other frame components (e.g. base plate, u-frame)

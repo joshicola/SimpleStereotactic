@@ -1,4 +1,6 @@
 # ToDos:
+- [x] Give an icon for use in 3D Slicer.
+- [x] Put Future Work at bottom.
 - [x] Move installation from README to another file
 - [x] Example
 - [x] Rename Directories and files appropriately
@@ -6,15 +8,16 @@
 - [x] linting of python files
     - [x] snake case
     - [x] doc strings
-- [ ] Testing the Extension under load
+- [X] Testing the Extension under load
     - [x] Electrodes switching: need to store the entry point as well.
     - [x] Electrodes switching: ensure data is saved for reseting.
     - [x] Dragging target beyond 50-150
-        - [ ] Need to update Readme/Wiki to note the constraints.
-    - [ ] Address all ToDos.
+        - [X] Need to update Readme/Wiki to note the constraints.
+    - [X] Address all ToDos.
 
 	
-## Non-Essential:
+## Non-Essential for later:
+- [ ] Create wiki for detailed specifications and instructions.
 - [ ] Use low-res example files. less than 5 Mb each... if possible...
     - [ ] Reference pig atlas publication
         https://doi.org/10.1016/j.jneumeth.2010.07.041
