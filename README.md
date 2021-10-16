@@ -33,7 +33,7 @@ This software was used in the following paper:
 
 [A novel re-attachable stereotactic frame for MRI-guided neuronavigation and its validation in a large animal and human cadaver model](https://iopscience.iop.org/article/10.1088/1741-2552/aadb49)
 
-Christine A Edwards, Aaron E Rusheen, Yoonbae O2, Seungleal B Paek, Joshua Jacobs, Kristen H Lee, Kendall D Dennis, Kevin E Bennet, Abbas Z Kouzani, Kendall H Lee
+Christine A Edwards, Aaron E Rusheen, Yoonbae Oh, Seungleal B Paek, Joshua Jacobs, Kristen H Lee, Kendall D Dennis, Kevin E Bennet, Abbas Z Kouzani, Kendall H Lee
 
 [![Alt text](https://img.youtube.com/vi/GGV5B3V5j9A/0.jpg)](https://www.youtube.com/watch?v=GGV5B3V5j9A)
 
