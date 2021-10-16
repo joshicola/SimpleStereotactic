@@ -11,14 +11,14 @@ This loads the blank extension that is ready to load both images and atlas.
 
 
 ## **Load Example File:**
-The example file, Porcine_Sample_Data_with_Atlas.mrb, can be loaded into 3D Slicer via a simple drag-and-drop operation.
+The example file, **Porcine_Sample_Data_with_Atlas**, can be loaded into 3D Slicer via a simple drag-and-drop operation.
 <center><img src="./Pictures/AddImage.png" width="512"></center>
 
 Alternatively, the file menu option, Add Data (Cntrl-O), can be used.
 
 ## **Register Image and Atlas:**
 
-The medical record bundle, Porcine_Sample_Data_with_Atlas.mrb, comes complete with fiducials, *Scan_Frame_Points*, marking the centers of 22 cross sections of the fiducial z-bar. Normally, these would be manually placed by the user on several slices of the image at hand.
+The medical record bundle, **Porcine_Sample_Data_with_Atlas**, comes complete with fiducials, *Scan_Frame_Points*, marking the centers of 22 cross sections of the fiducial z-bar. Normally, these would be manually placed by the user on several slices of the image at hand.
 <center><img src="./Pictures/Unregistered_Image.png" width="512"></center>
 
 ### **Register Image:**

@@ -15,10 +15,10 @@ This extension provides functionality to
 * Register an atlas of a given species to the Anterior Commissure and Posterior Commissure (AC/PC) of the provide subject
 * Plan and alter multiple trajectories for the placement of canulas to target points.
 
-[Detailed instructions](Example_Instructions.md) using the Porcine_Sample_Data_with_Atlas.mrb are provided.
+[Detailed instructions](Example_Instructions.md) using the **Porcine_Sample_Data_with_Atlas.mrb** are provided.
 
 ## Example File
-The example file provided, Porcine_Sample_Data_with_Atlas.mrb, is a medical record bundle (mrb) file with the following files zip-compressed within:
+The example file provided, **Porcine_Sample_Data_with_Atlas.mrb**, is a medical record bundle (mrb) file with the following files zip-compressed within:
 
 * **Sample_Pig_MPRAGE.nrrd**: An MRI of a pig head with z-bar fiducials
 * **Scan_Frame_Points.mrk.json**: A sampling of points on the z-bar fiducial in the MRI.
