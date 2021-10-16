@@ -806,8 +806,8 @@ class kopf_frameWidget(ScriptedLoadableModuleWidget):
             )
 
         # Set up new electrode
-        origin = [0, 0, 0]
-        terminus = [0, 0, 200]
+        origin = [0, 0, -3]
+        terminus = [0, 0, 6]
 
         # This section takes care of the "Electrode"
         line = vtk.vtkLineSource()
@@ -817,13 +817,34 @@ class kopf_frameWidget(ScriptedLoadableModuleWidget):
 
         tube_filter = vtk.vtkTubeFilter()
         tube_filter.SetCapping(True)
-        tube_filter.SetRadius(1.1)
+        tube_filter.SetRadius(0.25)
         tube_filter.SetNumberOfSides(20)
 
         tube_filter.SetInputDataObject(line.GetOutput())
         tube_filter.Update()
 
-        electrode = tube_filter.GetOutput()
+        # Set up new electrode
+        origin = [0, 0, -6]
+        terminus = [0, 0, 6]
+
+        # This section takes care of the "Electrode"
+        line_2 = vtk.vtkLineSource()
+        line_2.SetPoint1(origin)
+        line_2.SetPoint2(terminus)
+        line_2.Update()
+
+        tube_filter_2 = vtk.vtkTubeFilter()
+        tube_filter_2.SetCapping(True)
+        tube_filter_2.SetRadius(0.125)
+        tube_filter_2.SetNumberOfSides(20)
+
+        tube_filter_2.SetInputDataObject(line_2.GetOutput())
+        tube_filter_2.Update()
+        a = vtk.vtkAppendPolyData()
+        a.AddInputData(tube_filter.GetOutput())
+        a.AddInputData(tube_filter_2.GetOutput())
+        a.Update()
+        electrode = a.GetOutput()
 
         new_electrode = slicer.vtkMRMLModelNode()
         new_electrode.SetAndObservePolyData(electrode)
@@ -840,7 +861,9 @@ class kopf_frameWidget(ScriptedLoadableModuleWidget):
         electrode_display_node.SetAmbient(0.2)
         electrode_display_node.SetSliceIntersectionVisibility(True)
 
-        new_electrode.SetAndObserveTransformNodeID(slicer.util.getNode("Arc").GetID())
+        new_electrode.SetAndObserveTransformNodeID(
+            slicer.util.getNode("Obj_Trans").GetID()
+        )
         self.curr_electrode = new_electrode
         electrode_transform = slicer.vtkMRMLLinearTransformNode()
         electrode_transform.SetName("Transform_" + self.curr_electrode.GetName())
