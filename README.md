@@ -15,10 +15,10 @@ This extension provides functionality to
 * Register an atlas of a given species to the Anterior Commissure and Posterior Commissure (AC/PC) of the provide subject
 * Plan and alter multiple trajectories for the placement of canulas to target points.
 
-[Detailed instructions](Example_Instructions.md) using the Porcine_Sample_Data_with_Atlas.mrb are provided.
+[Detailed instructions](Example_Instructions.md) using the **Porcine_Sample_Data_with_Atlas.mrb** are provided.
 
 ## Example File
-The example file provided, Porcine_Sample_Data_with_Atlas.mrb, is a medical record bundle (mrb) file with the following files zip-compressed within:
+The example file provided, **Porcine_Sample_Data_with_Atlas.mrb**, is a medical record bundle (mrb) file with the following files zip-compressed within:
 
 * **Sample_Pig_MPRAGE.nrrd**: An MRI of a pig head with z-bar fiducials
 * **Scan_Frame_Points.mrk.json**: A sampling of points on the z-bar fiducial in the MRI.
@@ -33,7 +33,7 @@ This software was used in the following paper:
 
 [A novel re-attachable stereotactic frame for MRI-guided neuronavigation and its validation in a large animal and human cadaver model](https://iopscience.iop.org/article/10.1088/1741-2552/aadb49)
 
-Christine A Edwards, Aaron E Rusheen, Yoonbae O2, Seungleal B Paek, Joshua Jacobs, Kristen H Lee, Kendall D Dennis, Kevin E Bennet, Abbas Z Kouzani, Kendall H Lee
+Christine A Edwards, Aaron E Rusheen, Yoonbae Oh, Seungleal B Paek, Joshua Jacobs, Kristen H Lee, Kendall D Dennis, Kevin E Bennet, Abbas Z Kouzani, Kendall H Lee
 
 [![Alt text](https://img.youtube.com/vi/GGV5B3V5j9A/0.jpg)](https://www.youtube.com/watch?v=GGV5B3V5j9A)
 
